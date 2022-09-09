@@ -1,18 +1,18 @@
 import {
   ActivityIndicator,
-  SafeAreaView,
-  StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import React from 'react';
 // import { useNavigation } from '@react-navigation/native'
-import {useMovies} from '../hooks/useMovies';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useMovies } from '../hooks';
+import { MoviePoster } from '../components';
 
 export const HomeScreen = () => {
   // const navigation = useNavigation();
 
   const {peliculasEnCine, isLoading} = useMovies();
+  const {top} = useSafeAreaInsets();
 
 
   if (isLoading) {
@@ -23,12 +23,8 @@ export const HomeScreen = () => {
     );
   }
   return (
-    <SafeAreaView>
-      <Text>HomeScreen</Text>
-
-      {/* <Button title='Ir a detalle' onPress={()=> navigation.navigate('DetailScreen') } /> */}
-    </SafeAreaView>
+    <View style={{marginTop: top + 20}}>
+      <MoviePoster movie={peliculasEnCine[6]}/>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({});
