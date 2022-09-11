@@ -1,9 +1,10 @@
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParams } from '../navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useMovieDetails } from '../hooks/useMovieDetails';
+import { useMovieDetails } from '../hooks';
+import { MovieDetails } from '../components';
 
 
 
@@ -33,14 +34,12 @@ export const DetailScreen = ({navigation, route } : Props) => {
           <Text style={styles.subTitle}>{movie.original_title}</Text>
           <Text style={styles.title}>{movie.title}</Text>
         </View>
-        <View style={styles.marginContainer}>
-          <Icon 
-           name='star-outline'
-           color='grey'
-           size={20}
-          
-          />
-        </View>
+          {
+            isLoading ? 
+            <ActivityIndicator size={35} color='grey' style={{marginTop: 20}}/>
+            :
+            <MovieDetails movieFull={movieFull!} cast={cast} />
+          }
       </View>
     </ScrollView>
   )
